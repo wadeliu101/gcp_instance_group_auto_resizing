@@ -141,10 +141,7 @@ func query_current_status(token string, project_id string, query string) (int, e
 }
 
 func find_next_vm_size(current_size int) int {
-	for index, size := range max_replicas_list {
-		if index+1 == len(max_replicas_list) {
-			return current_size
-		}
+	for _, size := range max_replicas_list {
 		if current_size < size {
 			return size
 		}
