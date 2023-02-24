@@ -163,7 +163,7 @@ func find_prev_vm_size(current_size int) int {
 			}
 		}
 	}
-	return current_size
+	return max_replicas_list[len(max_replicas_list)-1]
 }
 
 func terraform_exec(workingDir string, tfvars Tfvars) error {
