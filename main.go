@@ -45,7 +45,7 @@ type Tfvars struct {
 var (
 	project_id          = flag.String("project_id", "", "target project_id")
 	group_name          = flag.String("group_name", "", "target instance group")
-	max_replicas_list   = []int{5, 10, 20, 40, 80, 160, 320}
+	max_replicas_list   = []int{5, 10, 20, 40, 80, 160, 320, 500}
 	terraform_file_path = "./terraform"
 )
 
