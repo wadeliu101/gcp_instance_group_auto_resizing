@@ -80,11 +80,7 @@ func main() {
 		fmt.Println(process_exist_number, instance_exist_number)
 		return
 	} else {
-		next_instance_number := find_prev_vm_size(instance_exist_number)
-		if next_instance_number < process_exist_number {
-			fmt.Println(process_exist_number, instance_exist_number, next_instance_number)
-			return
-		}
+		next_instance_number := find_fit_vm_size(process_exist_number)
 		terraform_exec(terraform_file_path, Tfvars{
 			project_id:   *project_id,
 			group_name:   *group_name,
@@ -149,18 +145,13 @@ func find_next_vm_size(current_size int) int {
 	return current_size
 }
 
-func find_prev_vm_size(current_size int) int {
-	for index, size := range max_replicas_list {
-		if current_size <= size {
-			switch index {
-			case 0:
-				return current_size
-			default:
-				return max_replicas_list[index-1]
-			}
+func find_fit_vm_size(current_running_process_number int) int {
+	for _, size := range max_replicas_list {
+		if current_running_process_number < size {
+			return size
 		}
 	}
-	return max_replicas_list[len(max_replicas_list)-1]
+	return current_running_process_number
 }
 
 func terraform_exec(workingDir string, tfvars Tfvars) error {
