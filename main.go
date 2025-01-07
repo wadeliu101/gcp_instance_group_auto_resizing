@@ -194,7 +194,7 @@ func terraform_exec(workingDir string, tfvars Tfvars) error {
 	tfvars_file.Seek(0, 0)
 	fmt.Fprintf(tfvars_file, "%v", string(f.Bytes()))
 
-	err = tf.Apply(context.Background())
+	err = tf.Apply(context.Background(), tfexec.Lock(false))
 
 	if err != nil {
 		return fmt.Errorf("error running Apply: %s", err)
